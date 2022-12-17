@@ -359,11 +359,7 @@ class Bot:
                             self.setStatusOfExpectation(self.users[event.user_id], 2)
                             continue
 
-
-
-
-
-                    
+                   
 
 class Vk_account:
     def __init__(self, user_id, session):
