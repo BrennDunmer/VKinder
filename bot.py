@@ -95,7 +95,7 @@ class Bot:
     '''Cоставляет список кандидатов для юзера'''
     def getCandidates(self, user):
         params = {
-            'sort': 1
+            'sort': 0
         }
         if user.preferences['city_id'] != None:
             params['city_id'] = user.preferences['city_id']
@@ -344,10 +344,8 @@ class Bot:
 
 
                         if request == hardcoded_dict.dictionary['commands']['find_candidates'].lower():
-                            if self.users[event.user_id].haveRegistration:
-                                self.sendNextCandidate(self.users[event.user_id])
-                            else:
-                                self.setStatusOfExpectation(self.users[event.user_id], 2)
+                            self.setStatusOfExpectation(self.users[event.user_id], 1)
+                            self.sendNextCandidate(self.users[event.user_id])
                             continue
 
                         if request == hardcoded_dict.dictionary['commands']['set_preferences'].lower():
@@ -385,7 +383,28 @@ class Vk_account:
         self.getAccountData(session)
         self.getBanStatus()
         self.getRegistrationStatus()
-        self.getPreferences()
+        if  self.haveRegistration:
+            self.getPreferences()
+        else:
+            self.preferences = {}
+            self.preferences['age_from'] = 18
+            if self.age != None:
+                self.preferences['age_to'] = self.age
+            else:
+                self.preferences['age_to'] = None
+            if self.sex != None:
+                if self.sex == 1:
+                    self.preferences['sex_id'] = 2
+                else:
+                    self.preferences['sex_id'] = 1
+            else:
+                self.preferences['sex_id'] = None
+            self.preferences['marital_status'] = 6
+            if self.city != None:
+                self.preferences['city_id'] = self.city
+            else:
+                self.preferences['city_id'] = None
+            self.saveVKAccountAsUser()
 
         if self.banStatus != True:
             self.saveVKAccountAsAccount()

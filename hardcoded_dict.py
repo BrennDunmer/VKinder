@@ -25,7 +25,7 @@ dictionary = {
         6: "Ввод города"
     },
     "commands": {
-        "find_candidates": "Искать кандидатов",
+        "find_candidates": "Искать",
         "set_preferences": "Предпочтения",
         "preference_id_nullable": "Не важно",
         "like": "Нравится",
