@@ -187,7 +187,7 @@ class Bot:
                         '''Если пользователь вводит возраст "С" '''
                         if self.users[event.user_id].statusOfExpectation == 2:
                             if request == hardcoded_dict.dictionary['commands']['preference_id_nullable'].lower():
-                                self.users[event.user_id].preferences['age_from'] = 16
+                                self.users[event.user_id].preferences['age_from'] = 18
                                 self.setStatusOfExpectation(self.users[event.user_id], 3)
                                 
                             else:
@@ -196,7 +196,7 @@ class Bot:
                                 except ValueError:
                                     self.write_msg(event.user_id, 'Упс! Что-то это не похоже на число.')
                                 else:
-                                    if int(request) < 16:
+                                    if int(request) < 18:
                                         self.write_msg(event.user_id, 'А тебе обязательно искать кого-то настолько молодого?')
                                     else:
                                         if int(request) > 100:
