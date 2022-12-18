@@ -139,6 +139,7 @@ class Bot:
         if userListReady:
             for q in range(len(self.userCandidates[user.id])):
                 if user.haveRelation(self.userCandidates[user.id][q]) == False:
+                    self.userCandidates[user.id][q].photos = User_api().getPhotoTop(self.userCandidates[user.id][q].id)
                     if len(self.userCandidates[user.id][q].photos) > 0:
                         candidate = self.userCandidates[user.id][q]
 
@@ -163,7 +164,7 @@ class Bot:
                 else:
                     continue
             if haveCandidate == False:
-                self.write_msg(user.id, 'Прости, но похоже ты посмотрел всех кандидатов по твоим параметрам. Измени параметры поиска или приходи в другой раз.')
+                self.write_msg(user.id, 'Прости, но похоже ты посмотрел всех кандидатов по твоим параметрам. Измени параметры поиска или нажми "дальше" для построения нового списка')
                 del self.userCandidates[user.id]
         return haveCandidate
 
@@ -373,7 +374,6 @@ class Vk_account:
         self.banStatus = None
         self.haveRegistration = None
         self.url = config.vkProd + 'id' + str(self.id)
-        self.photos = User_api().getPhotoTop(self.id)
         self.statusOfExpectation = 0
         self.offset = 0
 
